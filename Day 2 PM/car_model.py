@@ -4,7 +4,7 @@ import numpy as np
 RHO_AIR = 1.2  # air density for aerodynamic calculations
 
 def get_driving_cycles():
-    wb = xlrd.open_workbook("Automated car driving cycles.xlsx")
+    wb = xlrd.open_workbook("data/Automated car driving cycles.xlsx")
     ws = wb.sheet_by_name("Sheet1")
     headers = [ws.cell(0, x).value for x in range(1, ws.ncols)]
     return {header: np.array([float(ws.cell(row, index + 1).value)
@@ -63,4 +63,4 @@ def energy_consumption(mass, efficiency, surface_area, aux_power,
     auxilliary_energy = aux_power * cycle.size / distance #kJ/km
 
     return np.random.normal(loc=1, scale=.05) * (pa.w.sum() /
-        (1000 * distance) + auxilliary_energy) / efficiency
+        (1000 * distance) + auxilliary_energy) / efficiency / 1000
